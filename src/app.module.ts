@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeedModule } from './feed/feed.module';
 import { SpotModule } from './spot/models/spot.module';
+import { TagModule } from './tag/models/tag/tag.module';
+import { UserModule } from './user/models/user.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { SpotModule } from './spot/models/spot.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    TagModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

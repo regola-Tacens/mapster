@@ -1,14 +1,14 @@
-import { TagEntity } from 'src/tag/models/tag/tag.entity';
+import { SpotEntity } from 'src/spot/models/spot.entity';
 import {
   Column,
   Entity,
-  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('spot')
-export class SpotEntity {
+@Entity('tag')
+export class TagEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,14 +19,11 @@ export class SpotEntity {
   description: string;
 
   @Column({ default: '' })
-  adress: string;
-
-  @Column({ default: '' })
-  coordinates: string;
+  color: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @ManyToOne(() => TagEntity, (tag) => tag.spots)
-  tag: TagEntity;
+  @OneToMany(() => SpotEntity, (spot) => spot.tag)
+  spots: SpotEntity[];
 }

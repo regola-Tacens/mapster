@@ -1,3 +1,5 @@
+import { Tag } from 'src/tag/models/tag/tag.interface';
+
 export interface Spot {
   id?: number;
   title?: string;
@@ -5,4 +7,5 @@ export interface Spot {
   adress?: string;
   coordinates?: string;
   createdAt?: Date;
+  tag?: Tag;
 }
