@@ -21,6 +21,12 @@ export class SpotController {
     return this.spotService.createSpot(spot);
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: number): Observable<Spot> {
+    console.log('id', id);
+    return this.spotService.findOneSpot(id);
+  }
+
   @Get()
   findAll(): Observable<Spot[]> {
     return this.spotService.findAllSpots();

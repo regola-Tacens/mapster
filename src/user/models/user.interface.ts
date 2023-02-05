@@ -1,5 +1,7 @@
 // import { Spot } from 'src/spot/models/spot.interface';
 
+import { Spot } from 'src/spot/models/spot.interface';
+
 export interface User {
   id?: number;
   first_name?: string;
@@ -7,5 +9,5 @@ export interface User {
   email?: string;
   adress?: string;
   createdAt?: Date;
-  // spots?: Spot[];
+  spots?: Spot[];
 }

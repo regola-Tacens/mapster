@@ -1,4 +1,5 @@
 import { Tag } from 'src/tag/models/tag/tag.interface';
+import { User } from 'src/user/models/user.interface';
 
 export interface Spot {
   id?: number;
@@ -8,4 +9,5 @@ export interface Spot {
   coordinates?: string;
   createdAt?: Date;
   tag?: Tag;
+  users: User[];
 }

@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { SpotEntity } from 'src/spot/models/spot.entity';
+import { Spot } from 'src/spot/models/spot.interface';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('user')
 export class UserEntity {
@@ -20,6 +28,17 @@ export class UserEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  // @ManyToMany(() => SpotEntity, (spot) => spot.tag)
-  // spots: SpotEntity[];
+  @ManyToMany(() => SpotEntity, (spot) => spot.users)
+  @JoinTable({
+    name: 'spot_user',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'spot_id',
+      referencedColumnName: 'id',
+    },
+  })
+  spots: Spot[];
 }

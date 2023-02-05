@@ -1,4 +1,6 @@
 import { TagEntity } from 'src/tag/models/tag/tag.entity';
+import { UserEntity } from 'src/user/models/user.entity';
+import { User } from 'src/user/models/user.interface';
 import {
   Column,
   Entity,
@@ -29,4 +31,7 @@ export class SpotEntity {
 
   @ManyToOne(() => TagEntity, (tag) => tag.spots)
   tag: TagEntity;
+
+  @ManyToMany(() => UserEntity, (user) => user.spots)
+  users: User[];
 }

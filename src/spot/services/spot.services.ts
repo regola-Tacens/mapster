@@ -23,10 +23,15 @@ export class SpotService {
   }
 
   updateSpot(id: number, spot: Spot): Observable<UpdateResult> {
+    console.log(spot);
     return from(this.spotRepository.update(id, spot));
   }
 
   deleteSpot(id: number): Observable<DeleteResult> {
     return from(this.spotRepository.delete(id));
+  }
+
+  findOneSpot(id: number): Observable<Spot> {
+    return from(this.spotRepository.findOneBy({ id }));
   }
 }

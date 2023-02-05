@@ -13,7 +13,7 @@ export class tagService {
     private readonly tagRepository: Repository<TagEntity>,
   ) {}
 
-  createTag(tag: Tag): Observable<Spot> {
+  createTag(tag: Tag): Observable<Tag> {
     return from(this.tagRepository.save(tag));
   }
 }
