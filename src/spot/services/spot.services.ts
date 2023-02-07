@@ -14,7 +14,6 @@ export class SpotService {
   ) {}
 
   createSpot(spot: Spot): Observable<Spot> {
-    console.log('feedPost', spot);
     return from(this.spotRepository.save(spot));
   }
 
@@ -23,7 +22,6 @@ export class SpotService {
   }
 
   updateSpot(id: number, spot: Spot): Observable<UpdateResult> {
-    console.log(spot);
     return from(this.spotRepository.update(id, spot));
   }
 
