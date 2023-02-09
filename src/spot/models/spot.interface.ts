@@ -8,6 +8,6 @@ export interface Spot {
   adress?: string;
   coordinates?: string;
   createdAt?: Date;
-  tag?: Tag;
+  tagId?: number;
   users: User[];
 }

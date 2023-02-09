@@ -6,18 +6,23 @@ import {
   Put,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { Spot } from '../models/spot.interface';
 import { SpotService } from '../services/spot.services';
+import { UsePipes } from '@nestjs/common/decorators';
+import { ValidationPipe } from '@nestjs/common/pipes';
+import { CreateSpotDto } from '../DTO/spot.dto';
 
 @Controller('spot')
 export class SpotController {
   constructor(private spotService: SpotService) {}
   @Post()
-  create(@Body() spot: Spot): Observable<Spot> {
-    console.log('in controller', spot);
+  @HttpCode(201)
+  @UsePipes(new ValidationPipe())
+  create(@Body() spot: CreateSpotDto): Observable<Spot> {
     return this.spotService.createSpot(spot);
   }
 
@@ -43,5 +48,10 @@ export class SpotController {
   @Delete(':id')
   delete(@Param('id') id: number): Observable<DeleteResult> {
     return this.spotService.deleteSpot(id);
+  }
+
+  @Get('tag/:id')
+  findSpots(@Param('id') id: number): any {
+    return this.spotService.findSpotsByTag(id);
   }
 }
