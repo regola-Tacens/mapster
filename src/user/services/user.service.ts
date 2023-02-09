@@ -6,6 +6,7 @@ import { User } from '../models/user.interface';
 import { UserEntity } from '../models/user.entity';
 import { SpotEntity } from 'src/spot/models/spot.entity';
 import { SpotUserEntity } from 'src/join_entities/spot_user/models/spot_user.entity';
+import { AddSpotToUSerDto, updateUserDto } from '../DTO/user.dto';
 
 @Injectable()
 export class userService {
@@ -30,11 +31,11 @@ export class userService {
     return from(this.userRepository.delete(userId));
   }
 
-  updateUser(userId: number, user: User): Observable<UpdateResult> {
+  updateUser(userId: number, user: updateUserDto): Observable<UpdateResult> {
     return from(this.userRepository.update(userId, user));
   }
 
-  async addSpotToUser(id?: number, spotId?: number): Promise<void> {
+  async addSpotToUser(id?: number, spotId?: AddSpotToUSerDto): Promise<void> {
     const mySpot = Object.values(spotId)[0];
     const user = await this.userRepository.findOneBy({ id: Number(id) });
     const spot = await this.spotRepository.findOneBy({ id: mySpot });

@@ -6,9 +6,17 @@ import {
   Put,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
+import { UsePipes } from '@nestjs/common/decorators';
+import { ValidationPipe } from '@nestjs/common/pipes';
 import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import {
+  AddSpotToUSerDto,
+  CreateUserDto,
+  updateUserDto,
+} from '../DTO/user.dto';
 import { User } from '../models/user.interface';
 import { userService } from '../services/user.service';
 
@@ -16,18 +24,22 @@ import { userService } from '../services/user.service';
 export class UserController {
   constructor(private userService: userService) {}
   @Post()
-  create(@Body() user: User): Observable<User> {
-    console.log('user in controller', user);
+  @HttpCode(201)
+  @UsePipes(new ValidationPipe())
+  create(@Body() user: CreateUserDto): Observable<User> {
     return this.userService.createUser(user);
   }
 
   @Get(':id')
+  @HttpCode(200)
   findOne(@Param('id') id: number): Observable<User> {
     return this.userService.findUser(id);
   }
 
   @Put('/spot_user/:id')
-  addSpot(@Param('id') id: number, @Body() spotId: number): any {
+  @HttpCode(200)
+  @UsePipes(new ValidationPipe())
+  addSpot(@Param('id') id: number, @Body() spotId: AddSpotToUSerDto): any {
     return this.userService.addSpotToUser(id, spotId);
   }
 
@@ -37,9 +49,10 @@ export class UserController {
   }
 
   @Put(':id')
+  @UsePipes(new ValidationPipe())
   update(
     @Param('id') id: number,
-    @Body() user: User,
+    @Body() user: updateUserDto,
   ): Observable<UpdateResult> {
     return this.userService.updateUser(id, user);
   }
