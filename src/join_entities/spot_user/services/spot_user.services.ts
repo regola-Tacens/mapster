@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
-import { dataSource } from 'src/datasource/datasource';
 import { SpotEntity } from 'src/spot/models/spot.entity';
 import { Spot } from 'src/spot/models/spot.interface';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
@@ -17,11 +16,18 @@ export class SpotUserService {
     private readonly spotRepository: Repository<SpotEntity>,
   ) {}
 
-  deletSpotFromUser(spotId: number, userId: number): any {
-    const spot = this.spotUserRepository.findOne({
-      where: { spot_id: spotId, user_id: userId },
-    });
-    console.log('spot', spot);
+  async deletSpotFromUser(
+    userId: number,
+    spotId: { spotId: number },
+  ): Promise<DeleteResult> {
+    await this.spotUserRepository
+      .createQueryBuilder('spot_user')
+      .delete()
+      .where('spot_user.user_id = :userId', { userId: userId })
+      .andWhere('spot_user.spot_id = :spot', { spot: spotId.spotId })
+      .execute();
+
+    return null;
   }
 
   async findSpotsByUser(userId: number): Promise<Spot[]> {
