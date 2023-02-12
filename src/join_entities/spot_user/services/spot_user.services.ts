@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
+import { dataSource } from 'src/datasource/datasource';
+import { SpotEntity } from 'src/spot/models/spot.entity';
+import { Spot } from 'src/spot/models/spot.interface';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { SpotUserEntity } from '../models/spot_user.entity';
 
@@ -10,6 +13,8 @@ export class SpotUserService {
   constructor(
     @InjectRepository(SpotUserEntity)
     private readonly spotUserRepository: Repository<SpotUserEntity>,
+    @InjectRepository(SpotEntity)
+    private readonly spotRepository: Repository<SpotEntity>,
   ) {}
 
   deletSpotFromUser(spotId: number, userId: number): any {
@@ -17,6 +22,15 @@ export class SpotUserService {
       where: { spot_id: spotId, user_id: userId },
     });
     console.log('spot', spot);
-    // return from(this.spotRepository.delete(spot));
+  }
+
+  async findSpotsByUser(userId: number): Promise<Spot[]> {
+    const spotsId = await this.spotRepository
+      .createQueryBuilder('spot')
+      .leftJoin(SpotUserEntity, 'spot_user', 'spot.id = spot_user.spot_id')
+      .where('spot_user.user_id = :userId', { userId: userId })
+      .getMany();
+
+    return spotsId;
   }
 }

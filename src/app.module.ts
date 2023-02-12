@@ -7,6 +7,7 @@ import { FeedModule } from './feed/feed.module';
 import { SpotModule } from './spot/models/spot.module';
 import { TagModule } from './tag/models/tag/tag.module';
 import { UserModule } from './user/models/user.module';
+import { SpotUserModule } from './join_entities/spot_user/models/spot_user.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UserModule } from './user/models/user.module';
     }),
     TagModule,
     UserModule,
+    SpotUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
