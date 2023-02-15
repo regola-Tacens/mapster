@@ -27,6 +27,14 @@ export class userService {
     return from(this.userRepository.findOneBy({ id: Number(userId) }));
   }
 
+  findUserByEmail(email: { email: string }): Observable<User> {
+    return from(this.userRepository.findOneBy({ email: email.email }));
+  }
+
+  findUserByuserName(lastName: string): Observable<User> {
+    return from(this.userRepository.findOneBy({ last_name: lastName }));
+  }
+
   deleteUser(userId: number): Observable<DeleteResult> {
     return from(this.userRepository.delete(userId));
   }

@@ -8,6 +8,7 @@ import { SpotModule } from './spot/models/spot.module';
 import { TagModule } from './tag/models/tag/tag.module';
 import { UserModule } from './user/models/user.module';
 import { SpotUserModule } from './join_entities/spot_user/models/spot_user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { SpotUserModule } from './join_entities/spot_user/models/spot_user.modul
     TagModule,
     UserModule,
     SpotUserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

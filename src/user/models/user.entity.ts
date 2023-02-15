@@ -25,6 +25,9 @@ export class UserEntity {
   @Column({ default: '' })
   adress: string;
 
+  @Column({ default: '' })
+  password: string;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 

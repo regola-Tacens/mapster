@@ -22,6 +22,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   email?: string;
 
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+
   @MinLength(10, {
     message: 'Adress is too short',
   })

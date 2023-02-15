@@ -8,6 +8,7 @@ export interface User {
   last_name?: string;
   email?: string;
   adress?: string;
+  password?: string;
   createdAt?: Date;
   spots?: Spot[];
 }

@@ -36,6 +36,22 @@ export class UserController {
     return this.userService.findUser(id);
   }
 
+  @Get('/email/:id')
+  @HttpCode(200)
+  @UsePipes(new ValidationPipe())
+  findOneByEmail(@Body() email: { email: string }): Observable<User> {
+    console.log('email', email);
+    return this.userService.findUserByEmail(email);
+  }
+
+  @Post('/username')
+  @HttpCode(200)
+  @UsePipes(new ValidationPipe())
+  findOneByUsername(@Body() body: { lastname: string }): Observable<User> {
+    const { lastname } = body;
+    return this.userService.findUserByuserName(lastname);
+  }
+
   @Put('/spot_user/:id')
   @HttpCode(200)
   @UsePipes(new ValidationPipe())
