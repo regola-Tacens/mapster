@@ -5,7 +5,7 @@ import { Post } from '@nestjs/common/decorators/http/request-mapping.decorator';
 import { Request } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guards';
 import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guards';
+import { Public } from './decorators/publicDecorator';
 
 @Controller()
 export class AppController {
@@ -14,12 +14,13 @@ export class AppController {
     private authService: AuthService,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
+  @Public()
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
 
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {

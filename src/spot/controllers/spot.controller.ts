@@ -15,6 +15,7 @@ import { SpotService } from '../services/spot.services';
 import { UsePipes } from '@nestjs/common/decorators';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { CreateSpotDto } from '../DTO/spot.dto';
+import { Public } from 'src/decorators/publicDecorator';
 
 @Controller('spot')
 export class SpotController {
@@ -32,6 +33,7 @@ export class SpotController {
     return this.spotService.findOneSpot(id);
   }
 
+  @Public()
   @Get()
   findAll(): Observable<Spot[]> {
     return this.spotService.findAllSpots();
