@@ -11,10 +11,11 @@ import { SpotUserModule } from './join_entities/spot_user/models/spot_user.modul
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guards';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
     FeedModule,
     SpotModule,
     TypeOrmModule.forRoot({
